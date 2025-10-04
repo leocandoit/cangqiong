@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+//ConfigurationProperties让一个 Java 类，成为配置文件里 sky.jwt 这一节的“载体”，提前被赋值
 @ConfigurationProperties(prefix = "sky.jwt")
 @Data
 public class JwtProperties {

@@ -36,6 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee == null) {
             //账号不存在
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+            //抛出异常之后程序需要统一捕获，在handler层的全局异常
         }
 
         //密码比对
