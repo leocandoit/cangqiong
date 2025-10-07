@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
@@ -8,6 +9,8 @@ import com.sky.result.Result;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
 import com.sky.vo.EmployeeLoginVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +27,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
+@Api(tags = "员工相关接口呢")
 public class EmployeeController {
 
     @Autowired
@@ -38,6 +42,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation("员工登陆方法呢")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
@@ -66,8 +71,22 @@ public class EmployeeController {
      *
      * @return
      */
-    @PostMapping("/logout")
+    @PostMapping("/logout")//Spring MVC 的注解，用来把这个方法映射到一个 HTTP POST 请求
+    @ApiOperation("员工退出方法呢")
     public Result<String> logout() {
+        return Result.success();
+    }
+
+    /**
+     *
+     * @param employeeDTO
+     * @return
+     */
+    @PostMapping//如果没有没有参数默认访问路径是类上定义的 @RequestMapping 路径下的这个方法名对应路径
+    @ApiOperation("新增员工")//用于生成接口文档
+    public Result save(@RequestBody EmployeeDTO employeeDTO){//@RequestBody 自动将json字符串 转换为Java对象，不需要再去new和解析了
+        log.info("新增员工：{}", employeeDTO);
+        employeeService.save(employeeDTO);
         return Result.success();
     }
 
