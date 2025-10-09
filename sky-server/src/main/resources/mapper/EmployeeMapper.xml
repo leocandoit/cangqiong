@@ -27,4 +27,9 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="queryById" resultType="com.sky.entity.Employee">
+        select * from employee
+        where id = #{id}
+    </select>
 </mapper>
