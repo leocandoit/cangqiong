@@ -133,6 +133,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee queryEmployeeById(Long id) {
         Employee employee = employeeMapper.queryById(id);
+        employee.setPassword("******");
         return employee;
+    }
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        //拷贝到Employee
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());//通过之前拦截器保存在线程池的属性
+        employeeMapper.update(employee);
     }
 }
