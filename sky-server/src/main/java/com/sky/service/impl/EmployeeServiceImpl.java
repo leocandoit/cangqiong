@@ -101,9 +101,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         //select * from employee limit 0,10
-        //需要引进pagehelper插件,可以动态地把limit字段进行拼接
+        //需要引进pagehelper插件,可以动态地把limit字段进行拼接，不需要自己写
         //开始分页查询
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
+        //PageHelper拦截器会自动修改sql语句，将结果包装为Page<Employee>
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
 
         long total = page.getTotal();
