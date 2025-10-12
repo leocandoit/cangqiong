@@ -130,4 +130,11 @@ public class DishServiceImpl implements DishService {
                 .build();
         return dishMapper.list(dish);
     }
+
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        //修改菜品的状态为status
+        Dish dish = new Dish().builder().status(status).id(id).build();
+        dishMapper.update(dish);
+    }
 }
