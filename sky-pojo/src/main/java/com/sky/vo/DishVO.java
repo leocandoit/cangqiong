@@ -1,5 +1,6 @@
 package com.sky.vo;
 
+import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,4 +39,5 @@ public class DishVO implements Serializable {
     private List<DishFlavor> flavors = new ArrayList<>();
 
     //private Integer copies;
+
 }
