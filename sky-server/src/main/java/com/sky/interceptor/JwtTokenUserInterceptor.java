@@ -45,11 +45,21 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
 
         //2、校验令牌
         try {
+            // 记录日志：开始校验JWT令牌
             log.info("jwt校验:{}", token);
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);//TODO
+            
+            // 使用JWT工具类解析令牌，获取载荷信息（Claims）
+            // 如果令牌无效、过期或被篡改，parseJWT方法会抛出异常
+            Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
+            
+            // 从载荷中提取用户ID
+            // Claims中存储的是Object类型，需要先转为字符串，再转为Long类型
             Long userId = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
-            log.info("当前用户的id：",userId);
-            //存到当前线程
+            log.info("当前用户的id：", userId);
+            
+            // 将用户ID存储到ThreadLocal中
+            // 这样在后续的Controller、Service等方法中都可以通过BaseContext获取当前用户ID
+            // 避免了在每个方法中都传递userId参数
             BaseContext.setCurrentId(userId);
 
             //3、通过，放行
