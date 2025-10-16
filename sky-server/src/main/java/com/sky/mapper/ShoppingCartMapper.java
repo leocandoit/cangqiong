@@ -3,10 +3,7 @@ package com.sky.mapper;
 import com.sky.annotation.AutoFill;
 import com.sky.entity.ShoppingCart;
 import com.sky.enumeration.OperationType;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -32,4 +29,7 @@ public interface ShoppingCartMapper {
 
     @Select("SELECT * from shopping_cart where user_id = #{userId}")
     List<ShoppingCart> listByUserId(Long userId);
+
+    @Delete("delete from shopping_cart where user_id = #{userId}")
+    void clean(Long userId);
 }
